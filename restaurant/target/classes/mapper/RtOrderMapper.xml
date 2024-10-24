@@ -14,39 +14,44 @@
         <result property="createBy"    column="create_by"    />
         <result property="updateTime"    column="update_time"    />
         <result property="updateBy"    column="update_by"    />
+        <result property="totalPrice"    column="total_price"    />
     </resultMap>
 
     <sql id="selectRtOrderVo">
-        select id, food_info, table, status, del_flag, create_time, create_by, update_time, update_by from rt_order
+        select id, food_info, `table`, status, del_flag, create_time, create_by, update_time, update_by ,total_price from rt_order
     </sql>
 
     <select id="selectRtOrderList" parameterType="com.example.restaurant.domain.RtOrder" resultMap="RtOrderResult">
         <include refid="selectRtOrderVo"/>
         <where>del_flag='0'
             <if test="foodInfo != null  and foodInfo != ''"> and food_info = #{foodInfo}</if>
-            <if test="table != null  and table != ''"> and table = #{table}</if>
+            <if test="table != null  and table != ''"> and `table` = #{table}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
+        order by update_time desc
     </select>
 
-    <select id="selectRtOrderById" parameterType="long" resultMap="RtOrderResult">
+    <select id="selectRtOrderById" parameterType="string" resultMap="RtOrderResult">
         <include refid="selectRtOrderVo"/>
         where del_flag='0' and id = #{id}
     </select>
 
-    <insert id="insertRtOrder" parameterType="com.example.restaurant.domain.RtOrder" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertRtOrder" parameterType="com.example.restaurant.domain.RtOrder">
         insert into rt_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
             <if test="foodInfo != null">food_info,</if>
-            <if test="table != null">table,</if>
+            <if test="table != null">`table`,</if>
             <if test="status != null">status,</if>
             <if test="delFlag != null">del_flag,</if>
             <if test="createTime != null">create_time,</if>
             <if test="createBy != null">create_by,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="updateBy != null">update_by,</if>
+            <if test="totalPrice != null">total_price,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
             <if test="foodInfo != null">#{foodInfo},</if>
             <if test="table != null">#{table},</if>
             <if test="status != null">#{status},</if>
@@ -55,6 +60,7 @@
             <if test="createBy != null">#{createBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
+            <if test="totalPrice != null">#{totalPrice},</if>
         </trim>
     </insert>
 
@@ -62,22 +68,23 @@
         update rt_order
         <trim prefix="SET" suffixOverrides=",">
             <if test="foodInfo != null">food_info = #{foodInfo},</if>
-            <if test="table != null">table = #{table},</if>
+            <if test="table != null">`table` = #{table},</if>
             <if test="status != null">status = #{status},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="totalPrice != null">total_price = #{totalPrice},</if>
         </trim>
         where id = #{id}
     </update>
 
-    <delete id="deleteRtOrderById" parameterType="long">
+    <delete id="deleteRtOrderById" parameterType="string">
         update rt_order set del_flag='2' where id = #{id}
     </delete>
 
-    <delete id="deleteRtOrderByIds" parameterType="long">
+    <delete id="deleteRtOrderByIds" parameterType="string">
         update rt_order set del_flag='2' where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}

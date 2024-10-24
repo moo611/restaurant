@@ -1,8 +1,12 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "../views/Login.vue";
-import Home from "../views/Home.vue";
-import SignUp from '../views/SignUp.vue'
+import Home from "../views/home/Home.vue";
+import Order from "../views/order/index.vue";
+import Me from "../views/me/index.vue";
+import DashBoard from "../views/DashBoard.vue";
+import Message from "../views/message/index.vue";
+import SignUp from "../views/SignUp.vue";
 import { getToken } from "../utils/auth"; // 访问缓存的用户名
 
 const routes = [
@@ -17,15 +21,40 @@ const routes = [
     component: SignUp,
   },
   {
-    path: "/home",
-    name: "Home",
-    component: Home,
+    path: "/dashboard",
+    name: "DashBoard",
+    component: DashBoard,
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: "home",
+        name: "Home",
+        component: Home,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "order",
+        name: "Order",
+        component: Order,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "me",
+        name: "Me",
+        component: Me,
+        meta: { requiresAuth: true },
+      },
+    ],
+  },
+  {
+    path: "/message",
+    name: "Message",
+    component: Message,
     meta: { requiresAuth: true },
   },
-
   {
     path: "/",
-    redirect: "/home",
+    redirect: "/dashboard/home",
   },
 ];
 
@@ -37,7 +66,6 @@ const router = createRouter({
 // 导航守卫
 router.beforeEach((to, from, next) => {
   const isAuthenticated = !!getToken(); // 根据缓存判断是否登录
-
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     next("/login"); // 不带参数的重定向

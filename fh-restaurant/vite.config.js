@@ -18,12 +18,12 @@ export default defineConfig({
     },
   },
   server: {
-    // host:'0.0.0.0',
+    host:'0.0.0.0',
     port: 3001, // 设置前端开发服务器端口为 3001
     proxy: {
       // 本地代理配置
       "/api/": {
-        target: "http://localhost:8081/", // 指向后端服务的地址
+        target: "http://192.168.110.216:8081/", // 指向后端服务的地址
         changeOrigin: true, // 跨域时需要设置
         rewrite: (path) => path.replace(/^\/api/, ""), // 将请求路径中的 /api 去掉
       },

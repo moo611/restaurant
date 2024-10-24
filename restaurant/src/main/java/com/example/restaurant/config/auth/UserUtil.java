@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class UserUtil {
 
     // 获取当前用户的用户名
-    public String getCurrentUsername() {
+    public static String getCurrentUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {

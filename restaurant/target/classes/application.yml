@@ -1,6 +1,6 @@
 server:
   port: 8081
-
+  address: 0.0.0.0
 # mybatis配置
 mybatis:
   # 搜索指定包别名
@@ -23,6 +23,6 @@ spring:
       matching-strategy: ant_path_matcher
 pagehelper:
   helper-dialect: mysql
-  reasonable: true
+  reasonable: false
   support-methods-arguments: true
   params: count=countSql

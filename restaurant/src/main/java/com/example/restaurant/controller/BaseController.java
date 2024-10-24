@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class BaseController {
 
-    @Autowired
-    UserUtil userUtil;
-
     public AjaxResult success() {
         return AjaxResult.success();
     }

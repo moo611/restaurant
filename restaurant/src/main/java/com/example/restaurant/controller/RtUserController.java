@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.example.restaurant.config.auth.MyUserDetailsService;
+import com.example.restaurant.config.auth.UserUtil;
 import com.example.restaurant.domain.base.AjaxResult;
 import com.example.restaurant.domain.base.R;
 import com.example.restaurant.domain.req.LoginReq;
@@ -110,7 +111,7 @@ public class RtUserController extends BaseController
     @ApiOperation("获取用户详细信息")
     public AjaxResult getInfo()
     {
-        String username = userUtil.getCurrentUsername();
+        String username = UserUtil.getCurrentUsername();
         return success(rtUserService.selectRtUserByUsername(username));
     }
 

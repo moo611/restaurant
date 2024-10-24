@@ -38,7 +38,18 @@ public class RtMessage extends BaseEntity
 
     /** 订单id */
     @ApiModelProperty("订单id")
-    private Long orderId;
+    private String orderId;
+
+
+    public String getFoodInfo() {
+        return foodInfo;
+    }
+
+    public void setFoodInfo(String foodInfo) {
+        this.foodInfo = foodInfo;
+    }
+
+    private String foodInfo;
 
     /** 删除标识 */
     private String delFlag;
@@ -88,12 +99,12 @@ public class RtMessage extends BaseEntity
     {
         return table;
     }
-    public void setOrderId(Long orderId)
+    public void setOrderId(String orderId)
     {
         this.orderId = orderId;
     }
 
-    public Long getOrderId()
+    public String getOrderId()
     {
         return orderId;
     }

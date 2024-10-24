@@ -16,21 +16,24 @@
         <result property="createBy"    column="create_by"    />
         <result property="updateTime"    column="update_time"    />
         <result property="updateBy"    column="update_by"    />
+        <result property="foodInfo"    column="food_info"    />
     </resultMap>
 
     <sql id="selectRtMessageVo">
-        select id, from, to, message, table, order_id, del_flag, create_time, create_by, update_time, update_by from rt_message
+        select id, `from`, `to`, message, `table`, order_id, del_flag, create_time, create_by, update_time, update_by from rt_message
     </sql>
 
     <select id="selectRtMessageList" parameterType="com.example.restaurant.domain.RtMessage" resultMap="RtMessageResult">
-        <include refid="selectRtMessageVo"/>
-        <where>del_flag='0'
-            <if test="from != null  and from != ''"> and from = #{from}</if>
-            <if test="to != null  and to != ''"> and to = #{to}</if>
-            <if test="message != null  and message != ''"> and message = #{message}</if>
-            <if test="table != null  and table != ''"> and table = #{table}</if>
-            <if test="orderId != null "> and order_id = #{orderId}</if>
+        select a.id, a.`from`, a.`to`, a.message, a.`table`, a.order_id, a.del_flag, a.create_time, a.create_by, a.update_time, a.update_by,b.food_info from rt_message a
+        left join rt_order b on a.order_id = b.id
+        <where>a.del_flag='0' and b.del_flag='0'
+            <if test="from != null  and from != ''"> and a.`from` = #{from}</if>
+            <if test="to != null  and to != ''"> and a.`to` = #{to}</if>
+            <if test="message != null  and message != ''"> and a.message = #{message}</if>
+            <if test="table != null  and table != ''"> and a.`table` = #{table}</if>
+            <if test="orderId != null "> and a.order_id = #{orderId}</if>
         </where>
+        order by a.create_time desc
     </select>
 
     <select id="selectRtMessageById" parameterType="long" resultMap="RtMessageResult">
@@ -41,10 +44,10 @@
     <insert id="insertRtMessage" parameterType="com.example.restaurant.domain.RtMessage" useGeneratedKeys="true" keyProperty="id">
         insert into rt_message
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="from != null">from,</if>
-            <if test="to != null">to,</if>
+            <if test="from != null">`from`,</if>
+            <if test="to != null">`to`,</if>
             <if test="message != null">message,</if>
-            <if test="table != null">table,</if>
+            <if test="table != null">`table`,</if>
             <if test="orderId != null">order_id,</if>
             <if test="delFlag != null">del_flag,</if>
             <if test="createTime != null">create_time,</if>
@@ -69,10 +72,10 @@
     <update id="updateRtMessage" parameterType="com.example.restaurant.domain.RtMessage">
         update rt_message
         <trim prefix="SET" suffixOverrides=",">
-            <if test="from != null">from = #{from},</if>
-            <if test="to != null">to = #{to},</if>
+            <if test="from != null">`from` = #{from},</if>
+            <if test="to != null">`to` = #{to},</if>
             <if test="message != null">message = #{message},</if>
-            <if test="table != null">table = #{table},</if>
+            <if test="table != null">`table` = #{table},</if>
             <if test="orderId != null">order_id = #{orderId},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
