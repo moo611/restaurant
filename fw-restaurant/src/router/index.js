@@ -7,6 +7,7 @@ import Food from '../views/food/index.vue';
 import User from "../views/user/index.vue"
 import Message from '../views/message/index.vue'
 import Order from '../views/order/index.vue'
+import Statics from '../views/statics/index.vue'
 import { getToken } from '../utils/auth'; // 访问缓存的用户名
 
 const routes = [
@@ -30,6 +31,12 @@ const routes = [
         path: 'order',
         name: 'Order',
         component: Order,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'statics',
+        name: 'Statics',
+        component: Statics,
         meta: { requiresAuth: true },
       },
       {

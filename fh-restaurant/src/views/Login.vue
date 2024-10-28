@@ -43,7 +43,7 @@ function login() {
         console.log(response)
         setToken(response); // 缓存token
         
-        router.push('/home')
+        router.push('/dashboard/home')
       })
 
 

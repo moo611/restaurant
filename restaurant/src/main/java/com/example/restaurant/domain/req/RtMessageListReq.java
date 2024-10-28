@@ -7,4 +7,6 @@ import lombok.Data;
 @Data
 @ApiModel("消息列表请求")
 public class RtMessageListReq extends BaseReq {
+
+    String to;
 }

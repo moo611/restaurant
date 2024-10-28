@@ -1,10 +1,11 @@
 // src/utils/auth.js
 export function setUser(user) {
-  localStorage.setItem('user', user);
+
+  localStorage.setItem('user',  JSON.stringify(user));
 }
 
 export function getUser() {
-  return localStorage.getItem('user');
+  return JSON.parse(localStorage.getItem('user'));
 }
 export function setToken(token){
   localStorage.setItem('token',token)

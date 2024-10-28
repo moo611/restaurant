@@ -25,7 +25,10 @@
             <!-- <el-icon><icon-menu /></el-icon> -->
             <span>订单管理</span>
           </el-menu-item>
-          
+          <el-menu-item index="/dashboard/statics">
+            <!-- <el-icon><icon-menu /></el-icon> -->
+            <span>经营数据</span>
+          </el-menu-item>
           <el-menu-item index="/dashboard/user">
             <!-- <el-icon><icon-menu /></el-icon> -->
             <span>用户管理</span>

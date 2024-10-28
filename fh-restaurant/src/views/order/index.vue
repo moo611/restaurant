@@ -1,7 +1,7 @@
 <template>
   <div class="main-order">
     <div class="header">
-      <span style="font-size: 16px;">首页</span>
+      <span style="font-size: 16px;">订单</span>
 
     </div>
     <div style="height: 1px; background-color: #e0e0e0;"></div>
@@ -117,32 +117,5 @@ getOrderList()
   /* 内容过多时滚动 */
 }
 
-.van-image {
-  margin: 10px;
-}
 
-.dish-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.dish-name {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.dish-price {
-  font-size: 14px;
-  color: #999;
-}
-
-.counter {
-  display: flex;
-  align-items: center;
-}
-
-.counter span {
-  margin: 0 10px;
-  font-size: 16px;
-}
 </style>

@@ -27,6 +27,7 @@
             <if test="foodInfo != null  and foodInfo != ''"> and food_info = #{foodInfo}</if>
             <if test="table != null  and table != ''"> and `table` = #{table}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
         </where>
         order by update_time desc
     </select>

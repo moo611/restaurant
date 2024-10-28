@@ -2,7 +2,8 @@
   <div class="main-home">
     <div class="header">
       <span style="font-size: 16px;">首页</span>
-      <van-button style="position: absolute; right: 10px;" size="small" type="primary" @click="router.push('/message')">通知</van-button>
+      <van-button style="position: absolute; right: 10px;" size="small" type="primary"
+        @click="router.push('/message')">通知</van-button>
     </div>
     <div style="height: 1px; background-color: #e0e0e0;"></div>
     <van-list class="top" v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="getFoodList">
@@ -35,7 +36,8 @@
 
 
     <div class="bottom">
-      <van-button type="primary" style="width: 100%; margin: auto 20px;" @click="show = true">下单</van-button>
+      <span style="margin-left: 20px;font-size: 14px;">共计：{{state.price }}￥</span>
+      <van-button type="primary" style="width: 100%; margin: auto 20px;" @click="onOrder">下单</van-button>
     </div>
 
     <van-dialog v-model:show="show" title="提交订单" show-cancel-button @cancel="clearData" @confirm="handleAdd">
@@ -58,9 +60,17 @@ const queryParams = reactive({
   pageSize: 10000,
 
 })
+const onOrder=()=>{
+  if(state.price==0){
+    showToast('需要先点好再下单')
+    return
+  }
+  show = true
+}
 const show = ref(false)
 const state = reactive({
-  data: []
+  data: [],
+  price:0
 });
 const router = useRouter()
 const loading = ref(false);
@@ -85,7 +95,7 @@ const getInfo = () => {
 const clearData = () => {
   form.table = ''
   form.foodInfo = '',
-  form.totalPrice = 0
+    form.totalPrice = 0
 }
 
 const getFoodList = () => {
@@ -134,19 +144,48 @@ const handleAdd = () => {
   //console.log(price)
   //console.log(selectFoods)
   form.foodInfo = JSON.stringify(selectFoods)
-  form.totalPrice = price
+  form.totalPrice = state.price
   console.log(form)
   axios.post('order', form).then(res => {
     showToast('下单成功')
   })
 }
 
+
 function increment(item) {
   item.quantity++;
+  const selectFoods = state.data.filter(item =>
+    item.quantity > 0
+  ).map(item => {
+    return {
+      foodId: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity
+    }
+  })
+  selectFoods.forEach(item => {
+    //console.log(item)
+    state.price += (item.price * item.quantity)
+  })
 }
 function decrement(item) {
   if (item.quantity > 0) {
     item.quantity--;
+    const selectFoods = state.data.filter(item =>
+    item.quantity > 0
+  ).map(item => {
+    return {
+      foodId: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity
+    }
+  })
+    selectFoods.forEach(item => {
+      //console.log(item)
+      state.price += (item.price * item.quantity)
+    })
   }
 }
 
@@ -165,7 +204,7 @@ getInfo()
   flex-direction: column;
   width: 100%;
   height: 100%;
- 
+
 }
 
 .header {
