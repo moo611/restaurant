@@ -8,13 +8,13 @@
     <van-list class="top" v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="getOrderList">
       <div style="padding: 10px; margin: 8px; border-radius: 5px;background-color: white;" v-for="item in state.data" :key="item">
 
-        <div>
+        <div class="row">
           <span style="font-size: 12px;">订单id：{{ item.id }}</span>
         </div>
-        <div>
+        <div class="row">
           <span style="font-size: 12px;">订单状态: {{ getStatus(item.status) }}</span>
         </div>
-        <div>
+        <div class="row">
           <span style="font-size: 12px;">下单时间: {{ item.createTime }}</span>
         </div>
       </div>
@@ -116,6 +116,8 @@ getOrderList()
   overflow: auto;
   /* 内容过多时滚动 */
 }
-
+.row{
+  margin-bottom: 10px;
+}
 
 </style>

@@ -2,6 +2,8 @@ package com.example.restaurant.mapper;
 
 import java.util.List;
 import com.example.restaurant.domain.RtOrder;
+import com.example.restaurant.domain.RtOrderCountVO;
+import com.example.restaurant.domain.req.RtOrderCountReq;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -60,4 +62,7 @@ public interface RtOrderMapper
      * @return 结果
      */
     public int deleteRtOrderByIds(Long[] ids);
+
+    List<RtOrderCountVO> count(RtOrderCountReq rtOrderCountReq);
+
 }

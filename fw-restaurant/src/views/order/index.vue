@@ -54,7 +54,7 @@ import { reactive, ref } from 'vue';
 import axios from '../../axios';
 import { ElMessage } from 'element-plus';
 
-const statusOptions = [{ label: '进行中', value: '0' }, { label: '已完成', value: '1' }]
+const statusOptions = [{label: '全部', value: 'all'},{ label: '进行中', value: '0' }, { label: '已完成', value: '1' }]
 const statusFormatter = (row, column, cellValue) => {
   if (cellValue == '0') {
     return '进行中'
@@ -64,7 +64,7 @@ const statusFormatter = (row, column, cellValue) => {
 const queryParams = reactive({
   pageNum: 1,
   pageSize: 10,
-  status: '0'
+  status: 'all'
 })
 const state = reactive({
   data: {},
@@ -82,8 +82,13 @@ const clearData = () => {
 
 
 const getOrderList = () => {
-
-  axios.get('order/list', { params: queryParams }).then(res => {
+  let params = {}
+  params.pageNum = queryParams.pageNum
+  params.pageSize = queryParams.pageSize
+  if(queryParams.status!='all'){
+    params.status = queryParams.status
+  }
+  axios.get('order/list', { params: params }).then(res => {
 
     state.data = res
 

@@ -27,7 +27,7 @@
             <van-button plain type="primary" @click="decrement(item)" :disabled="item.quantity <= 0"
               size="small">-</van-button>
             <span>{{ item.quantity }}</span>
-            <van-button plain type="primary" @click="increment(item)" size="small">+</van-button>
+            <van-button plain type="primary" @click="increment(item)" :disabled="item.quantity>9" size="small">+</van-button>
           </div>
         </template>
 
@@ -65,7 +65,7 @@ const onOrder=()=>{
     showToast('需要先点好再下单')
     return
   }
-  show = true
+  show.value = true
 }
 const show = ref(false)
 const state = reactive({
@@ -153,6 +153,7 @@ const handleAdd = () => {
 
 
 function increment(item) {
+  state.price=0
   item.quantity++;
   const selectFoods = state.data.filter(item =>
     item.quantity > 0
@@ -171,6 +172,7 @@ function increment(item) {
 }
 function decrement(item) {
   if (item.quantity > 0) {
+    state.price=0
     item.quantity--;
     const selectFoods = state.data.filter(item =>
     item.quantity > 0

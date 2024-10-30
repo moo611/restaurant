@@ -8,7 +8,7 @@
         <el-input v-model="form.username" />
       </el-form-item>
       <el-form-item label="密码">
-        <el-input v-model="form.password" />
+        <el-input v-model="form.password" type="password"/>
       </el-form-item>
     </el-form>
     <div>
@@ -43,7 +43,7 @@ function login() {
       .then(response => {
         console.log(response)
         setToken(response); // 缓存token
-        router.replace('/dashboard');   // 登录成功后重定向到受保护页面
+        router.replace('/dashboard/food');   // 登录成功后重定向到受保护页面
 
       })
 

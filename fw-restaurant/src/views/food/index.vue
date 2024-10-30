@@ -9,7 +9,7 @@
       <el-table-column label="图片" width="120">
         <template v-slot="scope">
           <!-- 使用 img 标签来展示图片 -->
-          <img :src="scope.row.url" alt="图片" style="width: 100px; height: auto;" />
+          <img :src="scope.row.url" alt="图片" style="width: 100px; height: 80px;" />
         </template>
       </el-table-column>
       <el-table-column prop="name" label="菜名" />
@@ -174,7 +174,7 @@ getFoodList()
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 
 }
 

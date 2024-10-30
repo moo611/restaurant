@@ -11,7 +11,7 @@
         <el-input v-model="form.nickname" />
       </el-form-item>
       <el-form-item label="密码">
-        <el-input v-model="form.password" />
+        <el-input v-model="form.password" type="password"/>
       </el-form-item>
       <el-form-item label="角色">
         <el-select v-model="form.role" placeholder="请选择">

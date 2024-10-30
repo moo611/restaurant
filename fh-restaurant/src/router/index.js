@@ -7,6 +7,7 @@ import Me from "../views/me/index.vue";
 import DashBoard from "../views/DashBoard.vue";
 import Message from "../views/message/index.vue";
 import SignUp from "../views/SignUp.vue";
+import Edit from "../views/me/edit.vue";
 import { getToken } from "../utils/auth"; // 访问缓存的用户名
 
 const routes = [
@@ -45,6 +46,12 @@ const routes = [
         meta: { requiresAuth: true },
       },
     ],
+  },
+  {
+    path: "/edit",
+    name: "Edit",
+    component: Edit,
+    meta: { requiresAuth: true },
   },
   {
     path: "/message",

@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.example.restaurant.config.auth.UserUtil;
 import com.example.restaurant.domain.RtMessage;
+import com.example.restaurant.domain.RtOrderCountVO;
+import com.example.restaurant.domain.req.RtOrderCountReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.restaurant.mapper.RtOrderMapper;
@@ -98,5 +100,10 @@ public class RtOrderServiceImpl implements IRtOrderService
     public int deleteRtOrderById(Long id)
     {
         return rtOrderMapper.deleteRtOrderById(id);
+    }
+
+    @Override
+    public List<RtOrderCountVO> count(RtOrderCountReq rtOrderCountReq) {
+        return rtOrderMapper.count(rtOrderCountReq);
     }
 }

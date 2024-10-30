@@ -2,6 +2,8 @@ package com.example.restaurant.service;
 
 import java.util.List;
 import com.example.restaurant.domain.RtOrder;
+import com.example.restaurant.domain.RtOrderCountVO;
+import com.example.restaurant.domain.req.RtOrderCountReq;
 
 /**
  * 订单Service接口
@@ -58,4 +60,7 @@ public interface IRtOrderService
      * @return 结果
      */
     public int deleteRtOrderById(Long id);
+
+    List<RtOrderCountVO> count(RtOrderCountReq rtOrderCountReq);
+
 }

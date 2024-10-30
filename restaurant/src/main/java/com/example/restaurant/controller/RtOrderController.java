@@ -9,6 +9,7 @@ import com.example.restaurant.domain.RtFood;
 import com.example.restaurant.domain.RtMessage;
 import com.example.restaurant.domain.base.AjaxResult;
 import com.example.restaurant.domain.base.R;
+import com.example.restaurant.domain.req.RtOrderCountReq;
 import com.example.restaurant.domain.req.RtOrderListReq;
 import com.example.restaurant.service.IRtMessageService;
 import com.example.restaurant.utils.UUIDUtil;
@@ -118,7 +119,7 @@ public class RtOrderController extends BaseController {
         rtMessage.setOrderId(rtOrder.getId());
         rtMessage.setFrom("admin");
         rtMessage.setTo(rtOrder.getCreateBy());
-        rtMessage.setMessage("您有一份新订单");
+        rtMessage.setMessage("您的订单已完成");
         rtMessage.setTable(rtOrder.getTable());
         rtMessageService.insertRtMessage(rtMessage);
 
@@ -135,5 +136,13 @@ public class RtOrderController extends BaseController {
     @ApiOperation("删除订单")
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(rtOrderService.deleteRtOrderByIds(ids));
+    }
+
+
+    @GetMapping("/count")
+    public AjaxResult count(RtOrderCountReq rtOrderCountReq){
+
+        return AjaxResult.success("success",rtOrderService.count(rtOrderCountReq));
+
     }
 }

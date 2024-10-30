@@ -5,16 +5,16 @@
 <mapper namespace="com.example.restaurant.mapper.RtOrderMapper">
 
     <resultMap type="com.example.restaurant.domain.RtOrder" id="RtOrderResult">
-        <result property="id"    column="id"    />
-        <result property="foodInfo"    column="food_info"    />
-        <result property="table"    column="table"    />
-        <result property="status"    column="status"    />
-        <result property="delFlag"    column="del_flag"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="createBy"    column="create_by"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="updateBy"    column="update_by"    />
-        <result property="totalPrice"    column="total_price"    />
+        <result property="id" column="id"/>
+        <result property="foodInfo" column="food_info"/>
+        <result property="table" column="table"/>
+        <result property="status" column="status"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="totalPrice" column="total_price"/>
     </resultMap>
 
     <sql id="selectRtOrderVo">
@@ -24,12 +24,12 @@
     <select id="selectRtOrderList" parameterType="com.example.restaurant.domain.RtOrder" resultMap="RtOrderResult">
         <include refid="selectRtOrderVo"/>
         <where>del_flag='0'
-            <if test="foodInfo != null  and foodInfo != ''"> and food_info = #{foodInfo}</if>
-            <if test="table != null  and table != ''"> and `table` = #{table}</if>
-            <if test="status != null  and status != ''"> and status = #{status}</if>
-            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="foodInfo != null  and foodInfo != ''">and food_info = #{foodInfo}</if>
+            <if test="table != null  and table != ''">and `table` = #{table}</if>
+            <if test="status != null  and status != ''">and status = #{status}</if>
+            <if test="createBy != null  and createBy != ''">and create_by = #{createBy}</if>
         </where>
-        order by update_time desc
+        order by status asc,create_time desc
     </select>
 
     <select id="selectRtOrderById" parameterType="string" resultMap="RtOrderResult">
@@ -91,4 +91,17 @@
             #{id}
         </foreach>
     </delete>
+
+
+    <select id="count" parameterType="com.example.restaurant.domain.req.RtOrderCountReq"
+            resultType="com.example.restaurant.domain.RtOrderCountVO">
+
+        select sum(total_price) price,DATE_FORMAT(create_time, '%Y-%m-%d') AS `date` from rt_order
+        <where>
+            del_flag='0' and status='1'
+            <if test="startTime != null and endTime != null">and DATE_FORMAT(create_time, '%Y-%m-%d') between #{startTime} and #{endTime}</if>
+        </where>
+        GROUP BY DATE_FORMAT(create_time, '%Y-%m-%d')
+    </select>
+
 </mapper>
